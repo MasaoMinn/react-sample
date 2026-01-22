@@ -20,6 +20,17 @@ export class WebviewHelper {
         switch (type) {
           case 'hello':
             window.showInformationMessage(data);
+            break;
+          case 'ai-query':
+            // Process AI query and send response
+            console.log(`AI Query: ${data}`);
+            // Simulate AI response (in real implementation, you would call an AI service)
+            const aiResponse = `This is a response from VS Code extension to: "${data}"`;
+            webview.postMessage({
+              type: 'ai-response',
+              data: aiResponse
+            });
+            break;
         }
       },
       undefined,
