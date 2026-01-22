@@ -10,14 +10,28 @@
     "node": ">=18",
     "vscode": "^1.75.0"
   },
-  "activationEvents": [],
+  "activationEvents": [
+    "onView:hello-world.webview"
+  ],
   "contributes": {
-    "commands": [
-      {
-        "command": "hello-world.showHelloWorld",
-        "title": "Hello World: Show"
-      }
-    ]
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "hello-world-explorer",
+          "title": "Hello World",
+          "icon": "logo_light.svg"
+        }
+      ]
+    },
+    "views": {
+      "hello-world-explorer": [
+        {
+          "type": "webview",
+          "id": "hello-world.webview",
+          "name": "Webview"
+        }
+      ]
+    }
   },
   "scripts": {
     "dev": "vite",

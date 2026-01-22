@@ -1,14 +1,22 @@
-import type { ExtensionContext } from 'vscode';
-import { commands } from 'vscode';
+import type { ExtensionContext, WebviewView } from 'vscode';
+import { window, ViewColumn } from 'vscode';
 import { MainPanel } from './views/panel';
 
 export function activate(context: ExtensionContext) {
-  // Add command to the extension context
+  // Register webview view provider
   context.subscriptions.push(
-    commands.registerCommand('hello-world.showHelloWorld', async () => {
-      MainPanel.render(context);
-    }),
+    window.registerWebviewViewProvider('hello-world.webview', {
+      resolveWebviewView(webviewView: WebviewView) {
+        // Set up the webview view
+        webviewView.webview.options = {
+          enableScripts: true,
+        };
+
+        // Create or update the MainPanel using the static render method
+        MainPanel.render(context);
+      }
+    })
   );
 }
 
-export function deactivate() {}
+export function deactivate() { }
